@@ -183,7 +183,7 @@ export default function Calculator() {
 
             {/* Operators */}
             <button onClick={() => handleClick("/")} className="btn">/</button>
-            <button onClick={() => handleClick("*")} className="btn">*</button>
+            <button onClick={() => handleClick("*")} className="btn">X</button>
             <button onClick={() => handleClick("-")} className="btn">-</button>
             <button onClick={() => handleClick("+")} className="btn">+</button>
 
