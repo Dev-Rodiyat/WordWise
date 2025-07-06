@@ -178,7 +178,6 @@ const App = () => {
           </div>
         )}
 
-        {/* Favorite Toggle */}
         {word && (
           <button
             onClick={() => toggleFavorite(word)}
@@ -188,9 +187,7 @@ const App = () => {
           </button>
         )}
 
-        {/* History and Favorites Sections */}
-        <div className="flex flex-col md:flex-row items-stretch gap-4">
-          {/* History */}
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="border rounded-md dark:border-gray-600 w-full">
             <button
               onClick={() => setShowHistory(!showHistory)}
@@ -212,19 +209,20 @@ const App = () => {
                     {h}
                   </li>
                 ))}
-                {history.length > 0 && (
+                {history.length > 0 ? (
                   <button
                     onClick={() => setHistory([])}
                     className="mt-3 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
                   >
                     Clear History
                   </button>
+                ) : (
+                  <div>You do not have any history</div>
                 )}
               </ul>
             )}
           </div>
 
-          {/* Favorites */}
           <div className="border rounded-md dark:border-gray-600 w-full">
             <button
               onClick={() => setShowFavorites(!showFavorites)}
@@ -246,13 +244,15 @@ const App = () => {
                     {fav}
                   </li>
                 ))}
-                {favorites.length > 0 && (
+                {favorites.length > 0 ? (
                   <button
                     onClick={() => setFavorites([])}
                     className="mt-3 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
                   >
                     Clear Favorites
                   </button>
+                ) : (
+                  <div>You do not have any favorites</div>
                 )}
               </ul>
             )}
