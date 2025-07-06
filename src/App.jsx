@@ -92,70 +92,73 @@ const App = () => {
   };
 
   return (
-    <div className={`min-h-screen p-6 transition ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+    <div className={`min-h-screen p-4 sm:p-6 transition ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
       <div className="max-w-3xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">📖 WordWise</h1>
+
+        {/* Header */}
+        <div className="flex justify-between items-start sm:items-center gap-3">
+          <h1 className="text-xl sm:text-4xl font-bold">📖 WordWise</h1>
           <button
             onClick={toggleTheme}
-            className="rounded-full bg-gray-700 px-4 py-2 text-white hover:bg-gray-600"
+            className="rounded-md bg-gray-700 px-3 py-2 text-white hover:bg-gray-600 w-auto"
           >
-            {darkMode ? "☀️ Light" : "🌙 Dark"}
+            {darkMode ? "☀️" : "🌙"}
           </button>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
+        {/* Search Input & Button */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch">
           <input
             type="text"
             value={word}
             onChange={(e) => setWord(e.target.value)}
             placeholder="Enter a word..."
-            className="px-4 py-2 w-full sm:w-auto flex-1 border rounded-md dark:bg-gray-800 dark:border-gray-600"
+            className="px-4 py-2 w-full border rounded-md dark:bg-gray-800 dark:border-gray-600"
           />
           <button
             onClick={handleSearch}
-            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
           >
             Search
           </button>
         </div>
 
         {loading && (
-          <div className="flex justify-center"><ClipLoader color="#2563eb" size={40} /></div>
+          <div className="flex justify-center">
+            <ClipLoader color="#2563eb" size={40} />
+          </div>
         )}
 
         {error && <p className="text-center text-red-500">{error}</p>}
 
+        {/* Search Result */}
         {result && (
           <div className="bg-gray-100 dark:bg-gray-800 p-5 rounded-lg shadow space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">{result.word}</h2>
+            <div className="flex justify-between items-center flex-wrap gap-2">
+              <h2 className="text-xl sm:text-2xl font-bold">{result.word}</h2>
               {result.phonetics?.[0]?.audio && (
-                <button
-                  onClick={() => new Audio(result.phonetics[0].audio).play()}
-                >
-                  {''}
-                </button>
+                <button onClick={() => new Audio(result.phonetics[0].audio).play()}></button>
               )}
             </div>
 
-            <div className="flex gap-4 flex-wrap">
+            {/* Audio Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
               <button
                 onClick={() => speakText(result.word)}
-                className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700 flex items-center gap-2"
+                className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700 flex items-center gap-2 justify-center"
               >
                 <FaPlay /> Read Word
               </button>
               <button
                 onClick={() => speakText(result.meanings.map(m => m.definitions.map(d => d.definition).join(" ")).join(" "))}
-                className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-700 flex items-center gap-2"
+                className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-700 flex items-center gap-2 justify-center"
               >
                 <FaPlay /> Read Meaning
               </button>
               {isReading && (
                 <button
                   onClick={stopReading}
-                  className="bg-red-600 px-4 py-2 rounded text-white hover:bg-red-700 flex items-center gap-2 animate-pulse"
+                  className="bg-red-600 px-4 py-2 rounded text-white hover:bg-red-700 flex items-center gap-2 animate-pulse justify-center"
                 >
                   <FaStop /> Stop Reading
                 </button>
@@ -165,7 +168,7 @@ const App = () => {
             {result.meanings.map((meaning, index) => (
               <div key={index}>
                 <p className="italic font-medium">{meaning.partOfSpeech}</p>
-                <ul className="list-disc ml-6">
+                <ul className="list-disc ml-6 space-y-1">
                   {meaning.definitions.map((def, idx) => (
                     <li key={idx}>{def.definition}</li>
                   ))}
@@ -175,17 +178,20 @@ const App = () => {
           </div>
         )}
 
+        {/* Favorite Toggle */}
         {word && (
           <button
             onClick={() => toggleFavorite(word)}
-            className={`px-4 py-2 rounded text-white ${favorites.includes(word) ? "bg-yellow-500" : "bg-gray-500 hover:bg-yellow-600"}`}
+            className={`w-full sm:w-auto px-4 py-2 rounded text-white ${favorites.includes(word) ? "bg-yellow-500" : "bg-gray-500 hover:bg-yellow-600"}`}
           >
             {favorites.includes(word) ? "⭐ Favorited" : "☆ Add to Favorites"}
           </button>
         )}
 
-        <div className="flex flex-col md:flex-row items-start gap-5">
-          <div className="border rounded-md dark:border-gray-600 w-full md:w-auto">
+        {/* History and Favorites Sections */}
+        <div className="flex flex-col md:flex-row items-stretch gap-4">
+          {/* History */}
+          <div className="border rounded-md dark:border-gray-600 w-full">
             <button
               onClick={() => setShowHistory(!showHistory)}
               className="w-full text-left px-4 py-2 font-semibold bg-gray-200 dark:bg-gray-700 dark:text-white"
@@ -193,7 +199,7 @@ const App = () => {
               🕓 Search History {showHistory ? "▲" : "▼"}
             </button>
             {showHistory && (
-              <ul className="p-4 space-y-1">
+              <ul className="p-4 space-y-2">
                 {history.map((h, idx) => (
                   <li
                     key={idx}
@@ -218,8 +224,8 @@ const App = () => {
             )}
           </div>
 
-          {/* Favorites Section */}
-          <div className="border rounded-md dark:border-gray-600 w-full md:w-auto">
+          {/* Favorites */}
+          <div className="border rounded-md dark:border-gray-600 w-full">
             <button
               onClick={() => setShowFavorites(!showFavorites)}
               className="w-full text-left px-4 py-2 font-semibold bg-gray-200 dark:bg-gray-700 dark:text-white"
@@ -227,7 +233,7 @@ const App = () => {
               ⭐ Favorites {showFavorites ? "▲" : "▼"}
             </button>
             {showFavorites && (
-              <ul className="p-4 space-y-1">
+              <ul className="p-4 space-y-2">
                 {favorites.map((fav, idx) => (
                   <li
                     key={idx}
@@ -252,7 +258,6 @@ const App = () => {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );
