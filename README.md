@@ -1,12 +1,82 @@
-# React + Vite
+# WordWise 🧠📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**WordWise** is a modern and responsive web app that helps users learn new words, understand their meanings, pronunciations (IPA transcription), and see how they're used in sentences. Built with React, Vite, Tailwind CSS, and powered by dictionary APIs, WordWise is designed for learners, readers, and language enthusiasts who want to expand their vocabulary in a simple, elegant interface.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 **Search any word** to get:
+  - Definitions
+  - Transcriptions (IPA)
+  - Usage examples
+- 🌗 **Light/Dark theme toggle** with persistence
+- 📱 **Fully responsive design** for mobile and desktop
+- 🍔 **Mobile navigation menu** with animated modal
+- 💬 **Smooth UI animations** with Framer Motion
+- ⚡️ Fast, clean, and user-friendly interface
 
-## Expanding the ESLint configuration
+## 📸 Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Landing page light mode](image.png)
+![Dictionary page dark mode](image-1.png)
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Vite, Tailwind CSS
+- **Icons:** React Icons
+- **Animations:** Framer Motion
+- **Routing:** React Router DOM
+- **API:** [Free Dictionary API](https://dictionaryapi.dev/)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js & npm installed
+
+### Installation
+
+```bash
+git clone https://github.com/Dev-Rodiyat/WordWise.git
+cd WordWise
+npm install
+````
+
+### Running the App
+
+```bash
+npm run dev
+```
+
+Visit: `http://localhost:5173` or as configured by your dev server.
+
+## 🔧 Project Structure
+
+```
+src/
+├── components/     // Reusable UI components (Header, Footer, etc.)
+├── pages/          // Page components (Home, Dictionary, etc.)
+├── modals/          // Nav modal for small screens
+├── App.jsx         // App routes and layout
+├── main.jsx        // Entry point
+└── index.css       // Tailwind base styles
+```
+
+## 📦 API Usage Example
+
+You can use [DictionaryAPI.dev](https://dictionaryapi.dev/) or any other dictionary API to fetch word data:
+
+```bash
+GET https://api.dictionaryapi.dev/api/v2/entries/en/<word>
+```
+
+## 💡 Future Improvements
+
+* 🔊 Add pronunciation audio playback
+* 📝 Save searched words as favorites
+* 🌍 Support for multiple languages
+* 🔎 Autocomplete suggestions
+
+## 🧑‍💻 Author
+
+**\[Rodiyat Olajide]**
+Feel free to connect on [LinkedIn](https://www.linkedin.com/in/rodiyat-olajide-71b737329/), [X](https://x.com/Dev_Rodiyat) or check more projects on [GitHub](https://github.com/Dev-Rodiyat).
