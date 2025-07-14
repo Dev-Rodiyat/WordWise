@@ -1,9 +1,52 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { useState } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import { FiChevronDown } from 'react-icons/fi';
 
 const Home = () => {
+    const [openIndexes, setOpenIndexes] = useState([]);
+
+    const toggleIndex = (index) => {
+        setOpenIndexes((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
+    };
+
+    const steps = [
+        'Search any word in the input box',
+        'Read multiple definitions & examples',
+        'Hear pronunciation using text-to-speech',
+        'Save your favorite words for later',
+        'Access your search history anytime',
+        'Switch between Light & Dark mode',
+    ]
+
+    const features = [
+        '✅ Clean and responsive interface',
+        '🔊 Text-to-speech with play and stop',
+        '⭐ Save and view favorites easily',
+        '🕓 Auto-saved history of searched words',
+        '🌗 Light/Dark theme switch',
+        '📱 Mobile and desktop friendly',
+    ]
+
+    const faqs = [
+        {
+            question: "Is WordWise free to use?",
+            answer: "Yes! It’s 100% free with no login required.",
+        },
+        {
+            question: "How do I hear the pronunciation?",
+            answer: 'After searching a word, click the green "Read Word" button.',
+        },
+        {
+            question: "Can I use this on mobile?",
+            answer: "Absolutely. The app is fully responsive and works great on small screens.",
+        },
+    ];
+
     return (
         <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-white via-blue-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
             <Header />
@@ -38,14 +81,7 @@ const Home = () => {
                 >
                     <h2 className="text-3xl sm:text-4xl font-bold text-center">🚀 How It Works</h2>
                     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        {[
-                            'Search any word in the input box',
-                            'Read multiple definitions & examples',
-                            'Hear pronunciation using text-to-speech',
-                            'Save your favorite words for later',
-                            'Access your search history anytime',
-                            'Switch between Light & Dark mode',
-                        ].map((step, i) => (
+                        {steps.map((step, i) => (
                             <motion.div
                                 key={i}
                                 className="bg-white dark:bg-gray-800 p-6 rounded-2xl border dark:border-gray-700 shadow-sm hover:shadow-md transition-all"
@@ -69,14 +105,7 @@ const Home = () => {
                 >
                     <h2 className="text-3xl sm:text-4xl font-bold text-center">✨ Features</h2>
                     <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-lg text-gray-700 dark:text-gray-200">
-                        {[
-                            '✅ Clean and responsive interface',
-                            '🔊 Text-to-speech with play and stop',
-                            '⭐ Save and view favorites easily',
-                            '🕓 Auto-saved history of searched words',
-                            '🌗 Light/Dark theme switch',
-                            '📱 Mobile and desktop friendly',
-                        ].map((feature, index) => (
+                        {features.map((feature, index) => (
                             <li key={index} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm hover:shadow-md transition-all">
                                 {feature}
                             </li>
@@ -84,7 +113,6 @@ const Home = () => {
                     </ul>
                 </motion.section>
 
-                {/* FAQ Section */}
                 <motion.section
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -93,23 +121,48 @@ const Home = () => {
                     className="space-y-10"
                 >
                     <h2 className="text-3xl sm:text-4xl font-bold text-center">❓ FAQ</h2>
-                    <div className="max-w-3xl mx-auto space-y-6 text-gray-800 dark:text-gray-200">
-                        <div className="rounded-xl bg-gray-100 dark:bg-gray-800 p-5 shadow-sm">
-                            <p className="font-semibold">Q: Is WordWise free to use?</p>
-                            <p className="text-gray-600 dark:text-gray-400">A: Yes! It’s 100% free with no login required.</p>
-                        </div>
-                        <div className="rounded-xl bg-gray-100 dark:bg-gray-800 p-5 shadow-sm">
-                            <p className="font-semibold">Q: How do I hear the pronunciation?</p>
-                            <p className="text-gray-600 dark:text-gray-400">A: After searching a word, click the green "Read Word" button.</p>
-                        </div>
-                        <div className="rounded-xl bg-gray-100 dark:bg-gray-800 p-5 shadow-sm">
-                            <p className="font-semibold">Q: Can I use this on mobile?</p>
-                            <p className="text-gray-600 dark:text-gray-400">A: Absolutely. The app is fully responsive and works great on small screens.</p>
-                        </div>
+                    <div className="max-w-3xl mx-auto space-y-4 text-gray-800 dark:text-gray-200">
+                        {faqs.map((item, index) => {
+                            const isOpen = openIndexes.includes(index);
+
+                            return (
+                                <div
+                                    key={index}
+                                    className="rounded-xl bg-gray-100 dark:bg-gray-800 p-5 shadow-sm"
+                                >
+                                    <button
+                                        onClick={() => toggleIndex(index)}
+                                        className="w-full flex justify-between items-center font-semibold text-left"
+                                    >
+                                        <span>{`Q: ${item.question}`}</span>
+                                        <motion.span
+                                            animate={{ rotate: isOpen ? 180 : 0 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            <FiChevronDown className="w-5 h-5" />
+                                        </motion.span>
+                                    </button>
+
+                                    <AnimatePresence initial={false}>
+                                        {isOpen && (
+                                            <motion.div
+                                                key="content"
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: "auto" }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="overflow-hidden mt-3 text-sm text-gray-600 dark:text-gray-400"
+                                            >
+                                                A: {item.answer}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            );
+                        })}
                     </div>
                 </motion.section>
             </div>
-
             <Footer />
         </div>
     );

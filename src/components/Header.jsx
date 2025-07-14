@@ -57,7 +57,6 @@ const Header = () => {
                         ))}
                     </ul>
 
-                    {/* Theme toggle */}
                     <button
                         onClick={toggleTheme}
                         className="rounded-md bg-gray-700 px-3 py-2 text-white hover:bg-gray-600 w-auto flex items-center"
@@ -65,7 +64,6 @@ const Header = () => {
                         {darkMode ? <LuSunMedium /> : <GoMoon />}
                     </button>
 
-                    {/* Mobile menu button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(true)}
                         className="block lg:hidden p-2 text-gray-700 dark:text-white"

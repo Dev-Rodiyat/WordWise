@@ -3,7 +3,7 @@ import { ClipLoader } from "react-spinners";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "../components/Header";
-import axios from "axios"; // ✅ You must import axios since you're using it
+import axios from "axios";
 
 const Dictionary = () => {
     const [word, setWord] = useState("");
@@ -72,7 +72,7 @@ const Dictionary = () => {
             }
         };
 
-        const timeout = setTimeout(fetchSuggestions, 300); // debounce
+        const timeout = setTimeout(fetchSuggestions, 300);
         return () => clearTimeout(timeout);
     }, [word]);
 
@@ -106,8 +106,6 @@ const Dictionary = () => {
         >
             <Header />
             <div className="max-w-3xl mx-auto space-y-6 px-4 py-10 sm:px-8">
-
-                {/* Search Input */}
                 <motion.div
                     initial={{ y: -20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -155,7 +153,6 @@ const Dictionary = () => {
                     </div>
                 </motion.div>
 
-                {/* Loader */}
                 {loading && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -166,7 +163,6 @@ const Dictionary = () => {
                     </motion.div>
                 )}
 
-                {/* Error */}
                 {error && (
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -177,7 +173,6 @@ const Dictionary = () => {
                     </motion.p>
                 )}
 
-                {/* Result */}
                 <AnimatePresence>
                     {result && (
                         <motion.div
@@ -253,7 +248,6 @@ const Dictionary = () => {
                     )}
                 </AnimatePresence>
 
-                {/* Favorite Button */}
                 {word && (
                     <motion.button
                         initial={{ scale: 0.95, opacity: 0 }}
@@ -270,7 +264,6 @@ const Dictionary = () => {
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                    {/* History */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -318,7 +311,6 @@ const Dictionary = () => {
                         </AnimatePresence>
                     </motion.div>
 
-                    {/* Favorites */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
